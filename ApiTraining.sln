@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiSecurity", "ApiSecurity\ApiSecurity.csproj", "{A99E16CB-6B03-4C55-8D81-3131E954E64A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionedApi", "VersionedApi\VersionedApi.csproj", "{65D7C8AC-C65B-42F9-B7C0-0676AA30C12B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A99E16CB-6B03-4C55-8D81-3131E954E64A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A99E16CB-6B03-4C55-8D81-3131E954E64A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A99E16CB-6B03-4C55-8D81-3131E954E64A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D7C8AC-C65B-42F9-B7C0-0676AA30C12B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D7C8AC-C65B-42F9-B7C0-0676AA30C12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D7C8AC-C65B-42F9-B7C0-0676AA30C12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D7C8AC-C65B-42F9-B7C0-0676AA30C12B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
