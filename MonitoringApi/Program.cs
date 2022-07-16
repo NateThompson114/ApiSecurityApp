@@ -1,3 +1,5 @@
+using MonitoringApi.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -8,6 +10,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHealthChecks()
+    .AddCheck<RandomHealthCheck>("Site Health Check")
+    .AddCheck<RandomHealthCheck>("Database Health Check");
 
 var app = builder.Build();
 
@@ -23,5 +28,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 app.Run();
