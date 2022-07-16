@@ -4,6 +4,7 @@ namespace ApiProtection.Models
 {
     public class UserModel
     {
+        // https://docs.fluentvalidation.net/en/latest/aspnet.html
         [Range(1,int.MaxValue)]
         [Required]
         public int Id { get; set; }
