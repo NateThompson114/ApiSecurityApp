@@ -5,44 +5,37 @@
 namespace VersionedApi.Controllers.v2
 {
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]
     [ApiVersion("2.0")]
-    public class UsersController : ControllerBase
+    [ApiController]
+    public class EmployeesController : ControllerBase
     {
-        // GET: api/<UsersController>
+        // GET: api/<EmployeesController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "v2 value1", "v2 value2" };
+            return new string[] { "value1", "value2" };
         }
 
-        // GET: api/<UsersController>
-        [HttpGet("extra")]
-        public IEnumerable<string> NewExtraGet()
-        {
-            return new string[] { "New Extra v2 value1", "New Extra v2 value2" };
-        }
-
-        // GET api/<UsersController>/5
+        // GET api/<EmployeesController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<UsersController>
+        // POST api/<EmployeesController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<UsersController>/5
+        // PUT api/<EmployeesController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<UsersController>/5
+        // DELETE api/<EmployeesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
