@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiSecurity.Constants;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiSecurity.Controllers;
 
@@ -22,6 +24,9 @@ public class UsersController : ControllerBase
 
     // GET api/<UsersController>/5
     [HttpGet("{id}")]
+    [Authorize(Policy = PolicyConstants.MustHaveEmployeeId)]
+    [Authorize(Policy = PolicyConstants.MustBeTheOwner)]
+    //[Authorize(Policy = PolicyConstants.MustBeTheOwner)] // Can stack policies
     public string Get(int id)
     {
         return _config.GetConnectionString("Default");

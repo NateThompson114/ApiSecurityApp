@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -19,9 +20,10 @@ public class AuthenticationController : ControllerBase
     }
     public record AuthenticationData(string? UserName, string? Password);
 
-    public record UserData(int UserId, string UserName);
+    public record UserData(int UserId, string UserName, string Title, string? EmployeeId);
 
     // api/Authentication/token
+    [AllowAnonymous]
     [HttpPost("Token")]
     public ActionResult<string> Authenticate([FromBody] AuthenticationData data)
     {
@@ -46,10 +48,12 @@ public class AuthenticationController : ControllerBase
         //claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()));
         //claims.Add(new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName));
 
-        var claims = new List<Claim>
+        var claims = new List<Claim?>
         {
             new(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
-            new(JwtRegisteredClaimNames.UniqueName, user.UserName)
+            new(JwtRegisteredClaimNames.UniqueName, user.UserName),
+            new("title", user.Title),
+            !string.IsNullOrWhiteSpace(user.EmployeeId) ? new Claim("employeeId", user.EmployeeId) : null,
         };
 
         var token = new JwtSecurityToken(
@@ -67,10 +71,14 @@ public class AuthenticationController : ControllerBase
     private UserData? ValidateCredentials(AuthenticationData data)
     {
         // THIS IS NOT PRODUCTION CODE - DEMO - DO NOT USE - REPLACE WITH REAL SYSTEM
-        if (CompareValues(data.UserName, "nthompson") && CompareValues(data.Password, "Test123"))
-            return new UserData(1, data.UserName!);
+        if (CompareValues(data.UserName, "nate") && CompareValues(data.Password, "Test123"))
+            return new UserData(1, data.UserName!, "Developer", "E002");
         if (CompareValues(data.UserName, "misty") && CompareValues(data.Password, "Test123"))
-            return new UserData(1, data.UserName!);
+            return new UserData(1, data.UserName!, "Business Owner", "E001");
+        if (CompareValues(data.UserName, "river") && CompareValues(data.Password, "Test123"))
+            return new UserData(1, data.UserName!, "Dog Watcher", "E003");
+        if (CompareValues(data.UserName, "joe") && CompareValues(data.Password, "Test123"))
+            return new UserData(1, data.UserName!, "Social Media", null);
         return null;
     }
 
