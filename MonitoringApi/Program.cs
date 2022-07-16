@@ -1,7 +1,9 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MonitoringApi.HealthChecks;
+using WatchDog;
 
+// https://github.com/IzyPro/WatchDog
 // https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +30,13 @@ builder.Services.AddHealthChecks()
     .AddCheck<RandomHealthCheck>("Site Health Check")
     .AddCheck<RandomHealthCheck>("Database Health Check");
 
+// WatchDog, monitors what is called and when
+builder.Services.AddWatchDogServices();
+
 var app = builder.Build();
+
+// Logs any unhandled exceptions
+app.UseWatchDogExceptionLogger();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -48,5 +56,12 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 });
 
 app.MapHealthChecksUI();
+
+app.UseWatchDog(opts =>
+{
+    opts.WatchPageUsername = app.Configuration.GetValue<string>("WatchDog:UserName");
+    opts.WatchPagePassword = app.Configuration.GetValue<string>("WatchDog:Password");
+    opts.Blacklist = "health";
+});
 
 app.Run();
