@@ -6,7 +6,7 @@ namespace MonitoringApi.HealthChecks
     {
         public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = new CancellationToken())
         {
-            var responseTimeInMs = Random.Shared.Next(20, 600);
+            var responseTimeInMs = Random.Shared.Next(300);
 
             return responseTimeInMs switch {
                 < 100 => Task.FromResult(HealthCheckResult.Healthy($"The response time is excellent ({responseTimeInMs}ms)")),
