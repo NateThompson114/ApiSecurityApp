@@ -11,7 +11,7 @@ namespace ApiProtection.Controllers
     {
         // GET: api/<UsersController>
         [HttpGet]
-        //[ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)] // Duration = seconds
+        [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)] // Duration = seconds
         public IEnumerable<string> Get()
         {
             return new string[] { $"{Random.Shared.Next(1,101)}" };
