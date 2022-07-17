@@ -11,7 +11,7 @@ namespace ApiProtection.Controllers
     {
         // GET: api/<UsersController>
         [HttpGet]
-        [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)] // Duration = seconds
+        //[ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)] // Duration = seconds
         public IEnumerable<string> Get()
         {
             return new string[] { $"{Random.Shared.Next(1,101)}" };
@@ -19,7 +19,7 @@ namespace ApiProtection.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        [ResponseCache(Duration = 60*60*24, Location = ResponseCacheLocation.Any, NoStore = false)] // Cache is per id, each id will have a random number per day
+        //[ResponseCache(Duration = 60*60*24, Location = ResponseCacheLocation.Any, NoStore = false)] // Cache is per id, each id will have a random number per day
         public string Get(int id)
         {
             return $"Random Number: {Random.Shared.Next(1, 101)} for id {id}";

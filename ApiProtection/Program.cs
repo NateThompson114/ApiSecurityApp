@@ -1,3 +1,7 @@
+using ApiProtection.StartupConfig;
+using AspNetCoreRateLimit;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +11,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Setting up api response cache
 builder.Services.AddResponseCaching();
+
+#region Rate Limiting
+
+builder.Services.AddMemoryCache(); // Per server, this keeps track of the call, for multiple servers, you would want a redis cache like setup
+// This can be used for more than rate limiting, so it shouldn't be combined with extension method.
+builder.AddRateLimitServices();
+
+#endregion
 
 var app = builder.Build();
 
@@ -25,5 +38,8 @@ app.UseResponseCaching();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Enables services
+app.UseIpRateLimiting();
 
 app.Run();
