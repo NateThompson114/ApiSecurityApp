@@ -13,12 +13,12 @@ namespace MinimalApi.Routes
                 return Results.Ok(data.GetCustomers());
             });
 
-            app.MapGet("api/GetCustomer/{id}", (IDataAccess data, Guid id) =>
+            app.MapGet("/api/GetCustomer/{id}", (IDataAccess data, Guid id) =>
             {
                 return Results.Ok(data.GetCustomer(id));
             });
 
-            app.MapGet("api/GetCustomerWithOrders/{id}", (IDataAccess data, Guid id) =>
+            app.MapGet("/api/GetCustomerWithOrders/{id}", (IDataAccess data, Guid id) =>
             {
                 return Results.Ok(data.GetCustomerWithOrders(id));
             });
