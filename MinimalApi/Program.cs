@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.AddCustomerRoutes();
-app.AddOrderRoutes();
+app.AddCustomerEndpoints();
+app.AddOrderEndpoints();
 
 app.Run();

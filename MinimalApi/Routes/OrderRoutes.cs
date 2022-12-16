@@ -4,7 +4,7 @@ namespace MinimalApi.Routes
 {
     public static class OrderRoutes
     {
-        public static void AddOrderRoutes(this WebApplication app)
+        public static void AddOrderEndpoints(this WebApplication app)
         {
             app.MapGet("/api/GetOrders", (IDataAccess data) =>
             {

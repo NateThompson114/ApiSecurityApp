@@ -6,7 +6,7 @@ namespace MinimalApi.Routes
 {
     public static class CustomerRoutes
     {
-        public static void AddCustomerRoutes(this WebApplication app)
+        public static void AddCustomerEndpoints(this WebApplication app)
         {
             app.MapGet("/api/GetCustomers", (IDataAccess data) =>
             {
