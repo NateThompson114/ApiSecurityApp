@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiProtection", "ApiProtect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi", "MinimalApi\MinimalApi.csproj", "{49B673F1-9911-4107-BF90-748651CDD20F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi.Library", "MinimalApi.Library\MinimalApi.Library.csproj", "{5C714119-094F-43C5-94FB-6FFD86A01819}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{49B673F1-9911-4107-BF90-748651CDD20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49B673F1-9911-4107-BF90-748651CDD20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49B673F1-9911-4107-BF90-748651CDD20F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C714119-094F-43C5-94FB-6FFD86A01819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C714119-094F-43C5-94FB-6FFD86A01819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C714119-094F-43C5-94FB-6FFD86A01819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C714119-094F-43C5-94FB-6FFD86A01819}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
