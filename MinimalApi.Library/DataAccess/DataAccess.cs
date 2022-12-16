@@ -5,8 +5,8 @@ namespace MinimalApi.Library.DataAccess;
 
 public class DataAccess : IDataAccess
 {
-    private IEnumerable<Customer> CustomerDb;
-    private IEnumerable<Order> OrderDb;
+    private List<Customer> CustomerDb;
+    private List<Order> OrderDb;
     public DataAccess()
     {
         Randomizer.Seed = new Random(123456789);
@@ -29,7 +29,7 @@ public class DataAccess : IDataAccess
         CustomerDb = customerGenerator.Generate(100);
         OrderDb = CustomerDb.SelectMany(c =>
             ordergenerator.RuleFor(o => o.CustomerId, c.Id).Generate(Random.Shared.Next(1, 11))
-        );
+        ).ToList();
 
     }
 
@@ -43,8 +43,18 @@ public class DataAccess : IDataAccess
     }
     public Customer AddCustomer(Customer customer)
     {
-        CustomerDb.Append(customer);
+        CustomerDb.Add(customer);
         return customer;
+    }
+
+    public bool RemoveCustomer(Guid id)
+    {
+        var customer = CustomerDb.FirstOrDefault(c => c.Id == id);
+        if (customer == null) return false;
+        CustomerDb.Remove(customer);
+        OrderDb.Where(o => o.CustomerId == customer.Id).Select(o => OrderDb.Remove(o));
+
+        return true;
     }
 
     public IEnumerable<Order> GetOrders() => OrderDb;
