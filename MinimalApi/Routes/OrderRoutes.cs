@@ -6,19 +6,19 @@ namespace MinimalApi.Routes
     {
         public static void AddOrderEndpoints(this WebApplication app)
         {
-            app.MapGet("/api/GetOrders", (IDataAccess data) =>
+            app.MapGet("/api/GetOrders", async (IDataAccess data) =>
             {
-                return Results.Ok(data.GetOrders());
+                return Results.Ok(await data.GetOrders());
             });
 
-            app.MapGet("/api/GetOrder/{id}", (IDataAccess data, Guid id) =>
+            app.MapGet("/api/GetOrder/{id}", async (IDataAccess data, Guid id) =>
             {
-                return Results.Ok(data.GetOrder(id));
+                return Results.Ok(await data.GetOrder(id));
             });
 
-            app.MapGet("/api/GetCustomerOrders/{id}", (IDataAccess data, Guid customerId) =>
+            app.MapGet("/api/GetCustomerOrders/{id}", async (IDataAccess data, Guid customerId) =>
             {
-                return Results.Ok(data.GetCustomerOrders(customerId));
+                return Results.Ok(await data.GetCustomerOrders(customerId));
             });
         }
     }

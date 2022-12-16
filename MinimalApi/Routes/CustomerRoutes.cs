@@ -8,30 +8,30 @@ namespace MinimalApi.Routes
     {
         public static void AddCustomerEndpoints(this WebApplication app)
         {
-            app.MapGet("/api/GetCustomers", (IDataAccess data) =>
+            app.MapGet("/api/GetCustomers", async (IDataAccess data) =>
             {
-                return Results.Ok(data.GetCustomers());
+                return Results.Ok(await data.GetCustomers());
             });
 
-            app.MapGet("/api/GetCustomer/{id}", (IDataAccess data, Guid id) =>
+            app.MapGet("/api/GetCustomer/{id}", async (IDataAccess data, Guid id) =>
             {
-                return Results.Ok(data.GetCustomer(id));
+                return Results.Ok(await data.GetCustomer(id));
             });
 
-            app.MapGet("/api/GetCustomerWithOrders/{id}", (IDataAccess data, Guid id) =>
+            app.MapGet("/api/GetCustomerWithOrders/{id}", async (IDataAccess data, Guid id) =>
             {
-                return Results.Ok(data.GetCustomerWithOrders(id));
+                return Results.Ok(await data.GetCustomerWithOrders(id));
             });
 
-            app.MapPost("/api/AddCustomer", (IDataAccess data, [FromBody] CustomerDto dto) =>
+            app.MapPost("/api/AddCustomer", async (IDataAccess data, [FromBody] CustomerDto dto) =>
             {
                 var newCustomer = dto.GetCustomer(dto);
-                return Results.Ok(data.AddCustomer(newCustomer));
+                return Results.Ok(await data.AddCustomer(newCustomer));
             });
 
-            app.MapDelete("/api/DeleteCustomer/{id}", (IDataAccess data, Guid id) =>
+            app.MapDelete("/api/DeleteCustomer/{id}", async (IDataAccess data, Guid id) =>
             {
-                return Results.Ok(data.RemoveCustomer(id));
+                return Results.Ok(await data.RemoveCustomer(id));
             });
         }
     }

@@ -33,32 +33,64 @@ public class DataAccess : IDataAccess
 
     }
 
-    public IEnumerable<Customer> GetCustomers() => CustomerDb;
-    public Customer? GetCustomer(Guid id) => CustomerDb.FirstOrDefault(c => c.Id == id);
-    public Customer? GetCustomerWithOrders(Guid id)
+    public async Task<IEnumerable<Customer>> GetCustomers()
+    {
+        await Delay(30);
+        return CustomerDb;
+    }
+
+    public async Task<Customer?> GetCustomer(Guid id)
+    {
+        await Delay();
+        return CustomerDb.FirstOrDefault(c => c.Id == id);
+    }
+
+    public async Task<Customer?> GetCustomerWithOrders(Guid id)
     {
         var customer = CustomerDb.FirstOrDefault(c => c.Id == id);
-        customer.Orders = GetCustomerOrders(customer.Id);
+        await Delay();
+
+        if(customer == null) return null;
+        customer.Orders = await GetCustomerOrders(customer.Id);
+
         return customer;
     }
-    public Customer AddCustomer(Customer customer)
+    public async Task<Customer> AddCustomer(Customer customer)
     {
+        await Delay();
+
         CustomerDb.Add(customer);
         return customer;
     }
 
-    public bool RemoveCustomer(Guid id)
+    public async Task<bool> RemoveCustomer(Guid id)
     {
         var customer = CustomerDb.FirstOrDefault(c => c.Id == id);
         if (customer == null) return false;
+        await Delay();
         CustomerDb.Remove(customer);
         OrderDb.Where(o => o.CustomerId == customer.Id).Select(o => OrderDb.Remove(o));
 
         return true;
     }
 
-    public IEnumerable<Order> GetOrders() => OrderDb;
-    public IEnumerable<Order> GetCustomerOrders(Guid customerId) => OrderDb.Where(o => o.CustomerId == customerId);
-    public Order? GetOrder(Guid id) => OrderDb.FirstOrDefault(c => c.Id == id);
+    public async Task<IEnumerable<Order>> GetOrders()
+    {
+        await Delay(50);
+        return OrderDb;
+    }
 
+    public async Task<IEnumerable<Order>> GetCustomerOrders(Guid customerId)
+    {
+        await Delay();
+        return OrderDb.Where(o => o.CustomerId == customerId);
+    }
+
+    public async Task<Order?> GetOrder(Guid id)
+    {
+        await Delay();
+        return OrderDb.FirstOrDefault(c => c.Id == id);
+    }
+
+    internal async Task Delay(int additionalDelay = 0) => await Task.Delay(Random.Shared.Next(30, 500)+additionalDelay);
 }

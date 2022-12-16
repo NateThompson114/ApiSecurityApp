@@ -4,13 +4,13 @@ namespace MinimalApi.Library.DataAccess
 {
     public interface IDataAccess
     {
-        Customer AddCustomer(Customer dto);
-        bool RemoveCustomer(Guid id);
-        Customer? GetCustomer(Guid id);
-        IEnumerable<Order> GetCustomerOrders(Guid customerId);
-        IEnumerable<Customer> GetCustomers();
-        Customer? GetCustomerWithOrders(Guid id);
-        Order? GetOrder(Guid id);
-        IEnumerable<Order> GetOrders();
+        Task<Customer> AddCustomer(Customer dto);
+        Task<bool> RemoveCustomer(Guid id);
+        Task<Customer?> GetCustomer(Guid id);
+        Task<IEnumerable<Order>> GetCustomerOrders(Guid customerId);
+        Task<IEnumerable<Customer>> GetCustomers();
+        Task<Customer?> GetCustomerWithOrders(Guid id);
+        Task<Order?> GetOrder(Guid id);
+        Task<IEnumerable<Order>> GetOrders();
     }
 }
