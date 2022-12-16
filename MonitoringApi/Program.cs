@@ -36,7 +36,7 @@ builder.Services.AddWatchDogServices();
 var app = builder.Build();
 
 // Logs any unhandled exceptions
-app.UseWatchDogExceptionLogger();
+//app.UseWatchDogExceptionLogger();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -57,11 +57,11 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 
 app.MapHealthChecksUI();
 
-app.UseWatchDog(opts =>
-{
-    opts.WatchPageUsername = app.Configuration.GetValue<string>("WatchDog:UserName");
-    opts.WatchPagePassword = app.Configuration.GetValue<string>("WatchDog:Password");
-    opts.Blacklist = "health";
-});
+//app.UseWatchDog(opts =>
+//{
+//    opts.WatchPageUsername = app.Configuration.GetValue<string>("WatchDog:UserName");
+//    opts.WatchPagePassword = app.Configuration.GetValue<string>("WatchDog:Password");
+//    opts.Blacklist = "health";
+//});
 
 app.Run();
