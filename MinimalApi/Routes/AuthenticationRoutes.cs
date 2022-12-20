@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MinimalApi.Library.Constants;
 using MinimalApi.Models;
 
 namespace MinimalApi.Routes;
@@ -39,6 +40,8 @@ public static class AuthenticationRoutes
         claims.Add(new(JwtRegisteredClaimNames.UniqueName, user.UserName));
         claims.Add(new(JwtRegisteredClaimNames.GivenName, user.FirstName));
         claims.Add(new(JwtRegisteredClaimNames.FamilyName, user.LastName));
+        claims.Add(new Claim(PolicyConstants.CanGetOrders, user.Claims.FirstOrDefault(c => c.Type == PolicyConstants.CanGetOrders)?.Value ?? false.ToString()));
+        claims.Add(new Claim(PolicyConstants.CanGetCustomers, user.Claims.FirstOrDefault(c => c.Type == PolicyConstants.CanGetCustomers)?.Value ?? false.ToString()));
 
         var token = new JwtSecurityToken(
             config.GetValue<string>("Authentication:Issuer"),
@@ -57,7 +60,11 @@ public static class AuthenticationRoutes
         if (CompareValues(data.UserName, "nthompson") &&
             CompareValues(data.Password, "Test123"))
         {
-            return new UserData(1, "Nate", "Thompson", data.UserName!);
+            var claims = new List<Claim> {
+                new(PolicyConstants.CanGetOrders, true.ToString()),
+                new(PolicyConstants.CanGetCustomers, true.ToString())
+            };
+            return new UserData(1, "Nate", "Thompson", data.UserName!, claims);
         }
 
         //if (CompareValues(data.UserName, "sstorm") &&

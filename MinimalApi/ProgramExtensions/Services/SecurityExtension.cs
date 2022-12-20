@@ -28,21 +28,37 @@ public static class SecurityExtension
 
         builder.Services.AddAuthorization(options =>
         {
-            options.AddPolicy(PolicyConstants.MustBeTheOwner, policy =>
+            options.AddPolicy(PolicyConstants.CanGetOrders, policy =>
             {
-                //policy.RequireUserName("nate");
-                policy.RequireClaim("title", "Business Owner");
+                policy.RequireClaim(PolicyConstants.CanGetOrders, true.ToString());
             });
 
-            options.AddPolicy(PolicyConstants.MustBeAVeteranEmployee, policy =>
+            options.AddPolicy(PolicyConstants.CanGetCustomers, policy =>
             {
-                policy.RequireClaim("employeeId", "E001", "E002");
+                policy.RequireClaim(PolicyConstants.CanGetCustomers, true.ToString());
             });
 
-            options.AddPolicy(PolicyConstants.MustHaveEmployeeId, policy =>
+            options.AddPolicy(PolicyConstants.CanGetCustomersAndOrders, policy =>
             {
-                policy.RequireClaim("employeeId");
+                policy.RequireClaim(PolicyConstants.CanGetOrders, true.ToString());
+                policy.RequireClaim(PolicyConstants.CanGetCustomers, true.ToString());
             });
+
+            //options.AddPolicy(PolicyConstants.MustBeTheOwner, policy =>
+            //{
+            //    //policy.RequireUserName("nate");
+            //    policy.RequireClaim("title", "Business Owner");
+            //});
+
+            //options.AddPolicy(PolicyConstants.MustBeAVeteranEmployee, policy =>
+            //{
+            //    policy.RequireClaim("employeeId", "E001", "E002");
+            //});
+
+            //options.AddPolicy(PolicyConstants.MustHaveEmployeeId, policy =>
+            //{
+            //    policy.RequireClaim("employeeId");
+            //});
 
             options.FallbackPolicy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
